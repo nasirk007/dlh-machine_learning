@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+"""this task isto perform 2D matrix multiplication."""
+
+
 def mat_mul(mat1, mat2):
-    """this task isto perform matrix multiplication."""
     if len(mat1[0]) != len(mat2):
         return None
     result_mat = []
