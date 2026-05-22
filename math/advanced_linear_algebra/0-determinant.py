@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 def determinant(matrix):
     # check matrix type including rows
     if not isinstance(matrix, list):
@@ -42,5 +42,6 @@ def determinant(matrix):
         value = matrix[0][j]
         sub_det = determinant(minor)
         det += sign * value * sub_det
+
 
 return det
