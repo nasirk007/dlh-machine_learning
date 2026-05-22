@@ -43,5 +43,4 @@ def determinant(matrix):
         sub_det = determinant(minor)
         det += sign * value * sub_det
 
-
-return det
+    return det
