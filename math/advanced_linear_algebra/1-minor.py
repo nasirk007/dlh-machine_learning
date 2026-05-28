@@ -22,6 +22,11 @@ def minor(matrix):
     if len(matrix) == 1:
         return [[1]]
 
+    if len(matrix) == 0:
+        raise ValueError("matrix must be a non-empty square matrix")
+    if matrix == [[]]:
+        raise ValueError("matrix must be a non-empty square matrix")
+
     # check square
     for row in matrix:
         if len(row) != len(matrix):
@@ -43,6 +48,6 @@ def minor(matrix):
                             continue
                         small_row.append(matrix[r][c])
                     smaller.append(small_row)
-                row.append(smaller)
-            minor.append(row)
+            row.append(smaller)
+        minor.append(row)
     return minor
