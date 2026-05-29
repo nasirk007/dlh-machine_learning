@@ -124,3 +124,37 @@ def adjugate(matrix):
 
 
 def inverse(matrix):
+    """Calculates the inverse of a matrix"""
+
+    # same validation style as your cofactor/adjugate
+    if not isinstance(matrix, list) or matrix == []:
+        raise TypeError("matrix must be a list of lists")
+
+    for row in matrix:
+        if not isinstance(row, list):
+            raise TypeError("matrix must be a list of lists")
+
+    for row in matrix:
+        if len(row) != len(matrix) or matrix == [[]]:
+            raise ValueError("matrix must be a non-empty square matrix")
+
+    # Step 1: determinant
+    det = determinant(matrix)
+
+    # Step 2: check singular
+    if det == 0:
+        return None
+
+    # Step 3: adjugate (you already built it)
+    adj = adjugate(matrix)
+
+    # Step 4: divide each element by determinant
+    inverse_matrix = []
+
+    for i in range(len(adj)):
+        inverse_row = []
+        for j in range(len(adj)):
+            inverse_row.append(adj[i][j] / det)
+        inverse_matrix.append(inverse_row)
+
+    return inverse_matrix
