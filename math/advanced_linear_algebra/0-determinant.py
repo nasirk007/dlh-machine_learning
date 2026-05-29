@@ -37,7 +37,7 @@ def determinant(matrix):
 
     # move across column of row 0, pick each element
     for j in range(len(matrix)):
-        minor = []
+        smaller_matrix = []
         sign = (-1) ** j
         value = matrix[0][j]
         # loop over remaining rows (r), strat from row 1 and move till end
@@ -48,7 +48,7 @@ def determinant(matrix):
                 # if col idx matches col we are moving in top row (j), skip it
                 if c != j:
                     row.append(matrix[r][c])
-            minor.append(row)
+            smaller_matrix.append(row)
 
         # function is calling itself before user call after codes end at return
         sub_det = determinant(minor)
