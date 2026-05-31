@@ -93,9 +93,11 @@ def cofactor(matrix):
             raise ValueError("matrix must be a non-empty square matrix")
     if len(matrix) == 1:
         return [[1]]
-    cofactor_matrix = minor(matrix)
-    for i in range(len(cofactor_matrix)):
-        for j in range(len(cofactor_matrix)):
-            cofactor_sign = (-1) ** (i + j)
-            cofactor_matrix[i][j] *= cofactor_sign
-    return cofactor_matrix
+
+    cofact_matrix = []
+    for i in range(len(matrix)):
+        row = []
+        for j in range(len(matrix)):
+            row.append((-1) ** (i + j) * minor(matirx))
+        cofact_matrix.append(row)
+    return cofact_matrix
