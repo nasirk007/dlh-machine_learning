@@ -93,12 +93,15 @@ def cofactor(matrix):
             raise ValueError("matrix must be a non-empty square matrix")
     if len(matrix) == 1:
         return [[1]]
-    cofactor_matrix = minor(matrix)
-    for i in range(len(cofactor_matrix)):
-        for j in range(len(cofactor_matrix)):
-            cofactor_sign = (-1) ** (i + j)
-            cofactor_matrix[i][j] *= cofactor_sign
-    return cofactor_matrix
+
+    cofact_matrix = []
+    min_matrix = minor(matrix)
+    for i in range(len(matrix)):
+        row = []
+        for j in range(len(matrix)):
+            row.append((-1) ** (i + j) * min_matrix[i][j])
+        cofact_matrix.append(row)
+    return cofact_matrix
 
 
 def adjugate(matrix):
@@ -114,12 +117,12 @@ def adjugate(matrix):
             raise ValueError("matrix must be a non-empty square matrix")
 
     adjugate_matrix = []
-    cofactor_matrix = cofactor(matrix)
-    for i in range(len(cofactor_matrix)):
-        adjugate_row = []
-        for j in range(len(cofactor_matrix)):
-            adjugate_row.append(cofactor_matrix[j][i])
-        adjugate_matrix.append(adjugate_row)
+    cof_matrix = cofactor(matrix)
+    for j in range(len(cof_matrix)):
+        row = []
+        for i in range(len(cof_matrix)):
+            row.append(cof_matrix[i][j])
+        adjugate_matrix.append(row)
     return adjugate_matrix
 
 
@@ -146,15 +149,13 @@ def inverse(matrix):
         return None
 
     # Step 3: adjugate (you already built it)
-    adj = adjugate(matrix)
+    adj_matrix = adjugate(matrix)
 
     # Step 4: divide each element by determinant
     inverse_matrix = []
-
-    for i in range(len(adj)):
+    for i in range(len(adj_matrix)):
         inverse_row = []
-        for j in range(len(adj)):
-            inverse_row.append(adj[i][j] / det)
+        for j in range(len(adj_matrix)):
+            inverse_row.append(adj_matrix[i][j] / det)
         inverse_matrix.append(inverse_row)
-
     return inverse_matrix
