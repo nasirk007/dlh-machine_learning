@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 def summation_i(n):
+    """Returns the summation of i^2"""
     if not isinstance(n, (int, float)):
         return None
     else:
