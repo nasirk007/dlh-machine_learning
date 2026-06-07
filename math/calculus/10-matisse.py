@@ -4,22 +4,19 @@
 
 def poly_derivative(poly):
     """this is documentation to finding coefficient list of polynomial."""
-    
 
     if not isinstance(poly, list):
         return None
     for element in poly:
         if not isinstance(element, int):
-        return None
-        if isinstance(element, float):
-        return None
-    # base case
+            return None
+
+    # base case derivative, like for constant its zero
     if len(poly) == 1:
         return [0]
-    # if poly has more than one element
+
+    # derivative of function above constant
     new_poly = []
-    for element in poly:
-        
-
-
-    
+    for i in range(1, len(poly)):
+        new_poly.append(i * poly[i])
+    return new_poly
