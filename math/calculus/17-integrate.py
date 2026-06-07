@@ -3,20 +3,18 @@
 
 
 def poly_integral(poly, C=0):
-    """integral coefficient = add 1 to power → divide by new power."""
+    """integral coefficient = value divided by new power (i + 1)."""
 
     if not isinstance(poly, list) or len(poly) == 0:
+        return None
+    if not isinstance(C, int):
         return None
     for element in poly:
         if not isinstance(element, (int, float)):
             return None
 
-    # base case derivative, like for constant its zero
-    if len(poly) == 1:
-        return [0]
-
-    # derivative of function above constant
-    new_poly = []
-    for i in range(1, len(poly)):
-        new_poly.append(i * poly[i])
+    # integration of function above constant
+    new_poly = [C]
+    for i in range(len(poly)):
+        new_poly.append(poly[i] / (i + 1))
     return new_poly
