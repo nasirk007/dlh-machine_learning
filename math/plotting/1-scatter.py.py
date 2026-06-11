@@ -27,9 +27,3 @@ def scatter():
     plt.title("Men's Height vs Weight")
     plt.scatter(x, y, color="magenta")
     plt.show()
-    # it is just to save the graph as an image file
-    plt.savefig("scatter.png")
-
-
-# to call the function to see output in image file
-scatter()
