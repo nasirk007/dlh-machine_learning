@@ -21,9 +21,9 @@ def frequency():
     # this represent value on x-axis
     # Y-axis value, hist auto counts students falling in each range
     plt.hist(student_grades, bins=intervals, edgecolor="black")
-    plt.xlabel('Grades')
-    plt.ylabel('Number of Students')
-    plt.title('Project A')
+    plt.xlabel("Grades")
+    plt.ylabel("Number of Students")
+    plt.title("Project A")
     # understood from visual provided in task, rather explicit statement
     plt.xlim(0, 100)
     plt.ylim(0, 30)
