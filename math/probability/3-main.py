@@ -18,3 +18,10 @@ print('f(1):', e1.pdf(1))
 
 e2 = Exponential(lambtha=2)
 print('f(1):', e2.pdf(1))
+
+# task.5
+e1 = Exponential(data)
+print('F(1):', e1.cdf(1))
+
+e2 = Exponential(lambtha=2)
+print('F(1):', e2.cdf(1))
