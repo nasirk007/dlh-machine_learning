@@ -65,7 +65,10 @@ class Normal:
         return (x - self.mean) / self.stddev
 
     def x_value(self, z):
+        """calcualte x-score for given z-score."""
         # undo normalisation of data
+        # this function does not link to z_score method above
+        # it is just to understand coversion
         # covert back z-score to real value
         # x = μ + zσ
         x = self.mean + z * self.stddev
