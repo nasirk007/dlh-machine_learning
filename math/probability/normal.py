@@ -1,75 +1,58 @@
 #!/usr/bin/env python3
-"""This module creates a class exponential"""
+"""This module creates a class Normal"""
 
 
 class Normal:
-    """This class represents an exponential distribution"""
+    """This class represents an normal distribution"""
     # if data is given, the lambtha is calculated from data,
     # else it will be provided by the user, by default lambdha is 1.0
-    # simepl exponential function = f(x) = e^x
-    # exponential function in decay form, time involve
-    # f(x) = e^λx or f(t) = e^-λt
-    # lambtha is the rate of events occure for given time
-    # while λ is rate paraemter and is λ = 1/mean for exponential. DF
-    # time matter in this distribution, its a continous random variable
-    # e.g. waiting time for call, bus, failure, accident
-    # focus is to find probabiltiy of waiting time untill next event
-    # that why decay used (-lambdha in exponent) in Exp.Dist.Func.
-    # becuase possibility of still wating will get decrease over time
-    # probability of time itslef will not decrease as time passes
-    # probability that next emails will arive in 10mins = not possible
-    # becuase time is continous random variable and probability of
-    # time itself at specific point in time in future is not possible
-    # whats the probability that next emails will arive within 10mins = CDF
-    # core concept difference is waiting time vs time
-    # finance. e.g. prob of time btw no of trades, of time btw credit default
-    # how long it will take that next trade/default will occure
-    # find probability of waiting time for given interval of time
-    def __init__(self, data=None, lambtha=1.):
+    # simple normal distribution variable v = N(σ (std deviation), μ (mean))
+    # σ is std deviation, μ is mean of popultion rather sample
+    # ND is symmetric means cut into equal half
+    # In ND mean = median = mode
+    # pdf ==> f(x) = 1/σ√2π * e ^ −(x−μ)^2 / 2σ^2
+    # pdf = how popultion distributed densely around specific value
+    # value = continous random variable
+    # pdf = likelohood or dansity and not probability
+    # for proabability, there is another formula
+    # cdf = will be from z-score table
+    # cdf accumulated probability from left to x continous random value
+    # z-score, any variable can be converted into ND
+    # z-score = (x - μ) / σ
+    # 68-95-99.7% rule
+    # when σ = 1, means move 1 std from mean (left/right)
+    # this area under bell curve will represent 68% of population
+    # if we travel 2 std.dev from means and so on.......
+    # e.g. daily stock returns in USD for one month
+    # how likely they are around average is e.g of PDF-ND
+    # probabiltiy that returns of stock will be below threshold - CDF
+    def __init__(self, data=None, mean=0., stddev=1.):
         """constructor method."""
         # attaching data to object "self or P1, P2 per checker file"
         self.data = data
-        self.lambtha = float(lambtha)
+        self.mean = float(mean)
+        self.stddev = float(stddev)
         if data is None:
-            if lambtha <= 0:
-                raise ValueError("lambtha must be a positive value")
+            if stddev <= 0:
+                raise ValueError("stddev must be a positive value")
         if data is not None:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
             elif len(data) < 2:
                 raise ValueError("data must contain multiple values")
             else:
-                Sum = 0
+                total = 0
                 for i in range(len(data)):
-                    Sum += data[i]
-            # lambdha = 1/mean for exponential DF
-            self.lambtha = 1 / (Sum / len(data))
+                    total += data[i]
+                average = total / len(data)
 
-    def pdf(self, x):
-        """find PDF where dansity=likelihood for give time period."""
-        # PDF for exponential = f(x) = λ.e^-λt
-        # PDF will just confirm likelihood rather probabiltiy of waiting time
-        # actual probability for Exp.D.F will come from area under curve
-        # see integration formula P(a< T < b) = ∫^ab ​f(t)dt
-        # how likely the event is to occur around a specific time (density)
-        # but not the actual probability.
-        if x < 0:
-            return 0
-        else:
-            # calculate PDF using the formula: (lambdha * e^-lambtha.Time)
-            e = 2.7182818285
-            prob_dist_func = ((self.lambtha) * e ** ((-self.lambtha) * x))
-            return prob_dist_func
+                # Variance = ∑ (xi​−μ)^2 / n​
+                variance_sum = 0
+                for i in range(len(data)):
+                    variance_sum += (data[i] - average) ** 2
+                variance = variance_sum / len(data)
 
-    def cdf(self, x):
-        """find CDF for give time period."""
-        # Probability that event occurs within time t or x
-        # e.g. whats the probability that next emails will arive within 10mins
-        # the probability that the event has occurred up to a given time
-        if x < 0:
-            return 0
-        else:
-            # calculate PDF using the formula: (lambdha * e^-lambtha.Time)
-            e = 2.7182818285
-            cum_dist_func = 1 - e ** ((-self.lambtha) * x)
-            return cum_dist_func
+                # calcuate std deviation = e.g. risk in return of stocks
+                stand_deviation = variance ** 0.5
+            self.mean = average
+            self.stddev = stand_deviation
