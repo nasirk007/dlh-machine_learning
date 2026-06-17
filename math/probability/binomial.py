@@ -20,7 +20,7 @@ class Binomial:
         # mean of BD = np
         # variance = np(1-n)
         # Std Deviation = Squareroot of Np(1-n)
-        # PDF = P(X=x)=(x/n)p^x (1−p)^n−x
+        # PMF = P(X=k)=(n/k)p^k (1−p)^n−k
         # CDF = summation of each PDF
         self.n = round(n)
         self.p = float(p)
@@ -57,3 +57,30 @@ class Binomial:
                 final_P = mean / no_of_attempts
             self.n = no_of_attempts
             self.p = final_P
+
+    def pmf(self, k):
+        "Calculates the value of the PMF for a given number of successes."
+        if not isinstance(k, int):
+            k = int(k)
+        # n is number rather list, so len not possible
+        if k < 0 or k > self.n:
+            return 0
+
+        # PMF = P(X=k)=(n/k)p^k (1−p)^n−k
+        # (n/k) mean factorial = coefficient = n! / k!(n-k)!
+        # coefficient --> prob of success --> prob of failure
+        n_factorial = 1
+        for i in range(1, self.n + 1):
+            n_factorial *= i
+        k_factorial = 1
+        for i in range(1, k + 1):
+            k_factorial *= i
+        # nk_factorial = n_factorial - k_factorial is not correct
+        nk_factorial = 1
+        for i in range(1, self.n - k + 1):
+            nk_factorial *= i
+        coefficient = n_factorial / (k_factorial * nk_factorial)
+        prob_of_succ = self.p ** k
+        prob_of_failure = (1 - self.p) ** (self.n - k)
+        pmf = coefficient * prob_of_succ * prob_of_failure
+        return pmf
