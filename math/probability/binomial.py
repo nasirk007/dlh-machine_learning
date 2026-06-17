@@ -2,105 +2,58 @@
 """This module creates a class binomial"""
 
 
-class Bionomial:
+class Binomial:
     """This class represents an binomial distribution"""
     def __init__(self, data=None, n=1, p=0.5):
         """constructor method."""
-        # p is prob of success, and it must be btw 0 to 1
-        # n is no of trail, and it must be integer not float
-        # if data is given, the lambtha is calculated from data,
-        # else it will be provided by the user, by default lambdha is 1.0
-        # binomial distribution works when random variable are continous
-        # in nature and events are indpendent from each other
-        self.data = data
-        self.mean = float(mean)
-        self.stddev = float(stddev)
+        # probility of k success in fixed no of trail (n),
+        # where we have two possible outcome for each event
+        # p is prob of success, fixed parameter in BD function
+        # p is prob of success for single event, & bais is possible
+        # flipping 2 coins = 2 event, results are outcome given x or k value
+        # n is no bernoulli try/attempt/trails
+        # four conditions for BD:
+        # n no of trails must be fixed
+        # p must remain constant for every trail
+        # every trail will two possible outcome (succ. fail.)
+        # Events (trails) and outcomes are indpendent from each other
+        # mean of BD = np
+        # variance = np(1-n)
+        # Std Deviation = Squareroot of Np(1-n)
+        # PDF = P(X=x)=(x/n)p^x (1−p)^n−x
+        # CDF = summation of each PDF
+        self.n = round(n)
+        self.p = float(p)
         if data is None:
-            if stddev <= 0:
-                raise ValueError("stddev must be a positive value")
+            if n <= 0:
+                raise ValueError("n must be a positive value")
+            if not (0 < p < 1):
+                raise ValueError("p must be greater than 0 and less than 1")
         if data is not None:
             if not isinstance(data, list):
                 raise TypeError("data must be a list")
             elif len(data) < 2:
                 raise ValueError("data must contain multiple values")
             else:
-                total = 0
+                # mean → variance → p → n → recompute p
+                value = 0
                 for i in range(len(data)):
-                    total += data[i]
-                average = total / len(data)
+                    value += data[i]
+                mean = value / len(data)
 
-                # Variance = ∑ (xi​−μ)^2 / n​
-                variance_sum = 0
+                # variance (v^2) = np(1-p) ==> as mean = np
+                # rearrange formula to find P
+                # so p = 1 - variance / mean
+                # variance is till missing, calculate it first
+                summation = 0
                 for i in range(len(data)):
-                    variance_sum += (data[i] - average) ** 2
-                variance = variance_sum / len(data)
+                    summation += (data[i] - mean) ** 2
+                variance = summation / len(data)
+                initial_P = 1 - (variance / mean)
 
-                # calcuate std deviation = e.g. risk in return of stocks
-                stand_deviation = variance ** 0.5
-            self.mean = average
-            self.stddev = stand_deviation
-
-    def z_score(self, x):
-        """calcualte Z-score for given value of x."""
-        # normalisation of data
-        # z-score = (x - μ) / σ
-        # convert real value to standard unit
-        return (x - self.mean) / self.stddev
-
-    def x_value(self, z):
-        """calcualte x value for given z-score."""
-        # undo normalisation of data
-        # this function does not link to z_score method above
-        # it is just to understand coversion
-        # covert back z-score to real value
-        # x = μ + zσ
-        x = self.mean + z * self.stddev
-        return x
-
-    def pdf(self, x):
-        """calcualte dansity function (likelihood) for normal distribution."""
-        # pdf ==> f(x) = 1/σ√2π * e ^ −(x−μ)^2 / 2σ^2
-        # value = continous random variable
-        # pdf = likelohood or dansity and not probability
-        # for proabability, there is another formula
-        # PDF(90) tells how densely stock prices are clustered around 90
-        # not the probability of being exactly 90
-        # pdf does not tell probability which is area under curve
-        π = 3.1415926536
-        e = 2.7182818285
-        coefficient = 1 / (self.stddev * (2 * π) ** 0.5)
-        exponent = e ** (-((x - self.mean) ** 2) / (2 * (self.stddev ** 2)))
-        pdf = coefficient * exponent
-        return pdf
-
-    def cdf(self, x):
-        """calcualte cummulative dist func for normal distribution."""
-        # cdf ==> Probability that the variable is less than or equal to x
-        # cdf = how much probability has accumulated up to value x
-        # value = continous random variable
-        # convert value/variable x to z-score first and then
-        # get corresponding value for z-score in table or
-        # use erf() function, its an error approx function for ND
-        # F(x) = 0.5 (1+ erf((σ2​x−μ​)/σ2​))
-        # convert into % to understand result
-        # stock prices with mean 70, std deviatin 10 and at x=90 price
-        # means result z = 2 correspond 0.977 pr 97.7%
-        # 97.7% of the stock prices are equal or less than 90USD
-        # so there is 2.3% chance, stock prices will be above 90USD
-        # Its manipulated z value, added by root sequare two
-        z = (x - self.mean) / (self.stddev * (2 ** 0.5))
-
-        # error function, approx error function
-        # conver z value to polynomial
-        def erf(x):
-            π = 3.1415926536
-            erf = (2 / (π ** 0.5)) * (
-                x
-                - (x ** 3) / 3
-                + (x ** 5) / 10
-                - (x ** 7) / 42
-                + (x ** 9) / 216
-            )
-            return erf
-        # normal curve from inifinty to z and we need 0 to z on x-axis
-        return (1 + erf(z)) / 2
+                # compute n value, using mean = np
+                no_of_attempts = round(mean / initial_P)
+                # re-compute p value as required per task, using mean = np
+                final_P = mean / no_of_attempts
+            self.n = no_of_attempts
+            self.p = final_P
