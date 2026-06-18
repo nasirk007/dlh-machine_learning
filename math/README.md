@@ -1,1 +1,1 @@
-readme file for bayesian prob
+readme file for bayesian probability task
