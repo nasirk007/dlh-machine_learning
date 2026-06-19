@@ -7,16 +7,19 @@ class Binomial:
     def __init__(self, data=None, n=1, p=0.5):
         """constructor method."""
         # p is prob of success, fixed parameter in BD function
-        # p is prob of success for single event, & bais is possible
-        # flipping 2 coins = 2 event, results are outcome given x or k value
-        # n is no bernoulli try/attempt/trails
+        # p is prob of success when experiment perform repeatively
+        # p is 0.5 when we flip coin 1 time or 
+        # p will be 0.5 when we flip coin 15 times
+        # outcome (x or k value) and it cannot be 0, integer
+        # prob of these x or k value can be 0 --> 1, float
+        # n is no bernoulli try/attempt/trails, is fixed parameter
         # four conditions for BD:
         # n no of trails must be fixed
-        # p must remain constant for every trail
-        # every trail will two possible outcome (succ. fail.)
-        # Events (trails) and outcomes are indpendent from each other
-        # mean of BD = np, where most prob are concenterated
-        # variance = np(1-n) and
+        # p must remain constant for every n trail
+        # each trail is an event, and is indep from next n trail
+        # every trail will have two possible outcome (succ. fail.)
+        # mean ==> BD = np, where most prob are concenterated
+        # variance ==> np(1-n) and
         # measure spread(norrow/wide) of outcomes (k=x) around mean
         # variance = fluctuation, risk, uncertanity
         # Std Deviation = Squareroot of Np(1-n)
