@@ -4,7 +4,7 @@ import pandas as pd
 
 
 def from_numpy(array):
-    # Convert a numpy.ndarray to a pandas.DataFrame
+    """Convert a numpy.ndarray to a pandas.DataFrame."""
     # after covering, lable each column with a letter starting from A to Z (26)
     # by default, row and column labels are assigned as 0, 1, 2,...
     # DataFrame represent column and row and is 2D so array must be 2D
