@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Module that convert pandas DataFrame back to array."""
-import pandas as pd
 
 
 def array(df):
