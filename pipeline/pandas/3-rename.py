@@ -14,6 +14,6 @@ def rename(df):
     # errors is to handle raise them or ignore them upon changes in
     # in DF, and by default it ignores errors
     df['Timestamp'] = pd.to_datetime(df['Timestamp'], unit='s')
-    new_df = df.rename(columns={'Timestamp': 'Datetime'})
+    new_df = df.rename(columns={'Timestamp': 'Datetime'}, inplace='True')
     result_df = new_df(['Datetime', 'Close'])
     return result_df
