@@ -32,7 +32,7 @@ def fill(df):
     df['Low'] = df['Low'].fillna(df['Close'])
     df['Open'] = df['Open'].fillna(df['Close'])
 
-    # its possible to fill multiple column with empty cell 
+    # its possible to fill multiple column with NaN cell 
     # with 0 in one go, see below 
     df[['Volume_(BTC)', 'Volume_(Currency)']] = df[[
         'Volume_(BTC)', 'Volume_(Currency)']].fillna(0)
