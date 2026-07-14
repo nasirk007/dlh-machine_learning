@@ -8,7 +8,7 @@ def concat(df1, df2):
     """Task that concate two DataFrames."""
     df1 = index(df1)
     df2 = index(df2)
-    df2 = df2.iloc[:1417411920]
+    df2 = df2.loc[:1417411920]
     df3 = [df2, df1]
     df = pd.concat(df3, keys=['bitstamp', 'coinbase'])
     return df
